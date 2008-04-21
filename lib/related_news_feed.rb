@@ -11,7 +11,9 @@ class RelatedNewsFeed < ActiveRecord::Base
       entries = retrieve_feed_entries
       entries.each do |entry|
         unless related_news_items.find_by_url(entry.link)
-          related_news_items << RelatedNewsItem.parse(entry)
+          news_item = RelatedNewsItem.parse(entry)
+          news_item.newsworthy = self.newsworthy
+          related_news_items << news_item
         end
       end
     rescue TimeoutError

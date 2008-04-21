@@ -6,13 +6,15 @@ module RelatedNews
   module ClassMethods
     def has_related_news
       has_many :related_news_feeds, :as => :newsworthy, :dependent => :destroy
+      has_many :related_news_items, :as => :newsworthy
+      
       include RelatedNews::InstanceMethods
     end    
   end
   
   module InstanceMethods
-    def latest_news_items(count = 10)
-      "newest #{count} news items"
+    def latest_news_items(limit = 10)
+      related_news_items.find(:all, :limit => limit)
     end
     
     def update_news_feeds

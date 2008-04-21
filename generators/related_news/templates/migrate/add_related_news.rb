@@ -9,10 +9,13 @@ class AddRelatedNews < ActiveRecord::Migration
     end
 
     create_table :related_news_items, :force => true do |t|
+      t.string  :newsworthy_type
+      t.string  :newsworthy_id
       t.integer :related_news_feed_id
       t.string  :title
       t.string  :url
       t.text    :description
+      t.text    :content
       
       t.timestamps
     end
