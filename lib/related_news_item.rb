@@ -10,4 +10,8 @@ class RelatedNewsItem < ActiveRecord::Base
     
     RelatedNewsItem.new(:title => title, :url => url, :description => description, :content => content)    
   end
+  
+  def self.latest_news_items(limit = 10)
+    find(:all, :limit => limit, :order => 'created_at DESC')
+  end
 end
